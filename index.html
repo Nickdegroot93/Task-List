@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="shortcut icon" type="image/png" href="/icon.png" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+
+		<script defer src="scripts/script.js"></script>
+
+		<title>Tasks | By Nick de Groot</title>
+	</head>
+	<body>
+		<div class="categories-container">
+			<div class="logo-box">
+				<img src="img/logo.png" alt="Logo" class="logo" />
+				<h1 id="logo-text">myTasks</h1>
+				<img
+					src="img/shrink.png"
+					alt="expand/collapse"
+					class="btn btn-expand-shrink"
+				/>
+			</div>
+			<div class="add-category__box">
+				<p class="add-category__text">Add Category</p>
+			</div>
+			<div class="categories__box">
+				<!-- <div class="category active" data-id="1">
+					<p class="category__title">Default</p>
+					<p class="category__date">01/01/2000</p>
+					<div class="category__btns">
+						<img src="img/delete.png" alt="delete" class="btn btn-delete" />
+						<img src="img/edit.png" alt="edit" class="btn btn-edit" />
+					</div>
+				</div> -->
+			</div>
+
+			<div class="copyrights__box">
+				© Copyright by Nick de Groot. Created as an assignment for The Oding
+				Project.
+			</div>
+		</div>
+
+		<div class="task-container">
+			<button class="add-task">Add Task</button>
+			<!-- <div class="task" id="task-1">
+				<div class="task__title">Clean Bathroom</div>
+				<div class="task__description">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+					minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+					aliquip ex ea commodo consequat.
+				</div>
+				<div class="task__details">
+					<div class="task__date-created">Date Created: 21/07/2021</div>
+					<div class="task__date-due">Due Date: 24/07/2021</div>
+					<div class="task__priority">Priority: High</div>
+					<div class="task__buttons">
+						<img
+							src="img/delete.png"
+							alt="delete"
+							class="btn btn-delete"
+							id="btn-delete__task"
+						/>
+						<img
+							src="img/edit.png"
+							alt="edit"
+							class="btn btn-edit"
+							id="btn-edit__task"
+						/>
+						<img
+							src="img/checkmark.png"
+							alt="edit"
+							class="btn btn-check"
+							id="btn-check__task"
+						/>
+					</div>
+				</div>
+			</div> -->
+		</div>
+		<div class="modal hidden" id="task-modal">
+			<button class="btn--close-modal">&times;</button>
+			<h2 class="modal__header">Create your task</h2>
+			<div class="modal__form">
+				<label>Title</label>
+				<input type="text" id="task-title" />
+				<label>Description (optional)</label>
+				<textarea type="text" id="input-description"></textarea>
+
+				<label for="priority">Priority</label>
+				<select id="priorities" name="priorities">
+					<option value="low" selected>Low</option>
+					<option value="medium">Medium</option>
+					<option value="high">High</option>
+				</select>
+
+				<label>Due Date</label>
+				<input type="date" id="duedate" />
+			</div>
+			<div class="warning-msg charlengh-warning hidden">
+				Please enter a task title (max. 40 characters)
+			</div>
+			<div class="warning-msg valid-date hidden">
+				Please enter a valid due date (due date cannot be in the past)
+			</div>
+			<div class="btn-confirm" id="btn-task-confirm">Confirm</div>
+		</div>
+		<div class="modal hidden" id="category-modal">
+			<button class="btn--close-modal">&times;</button>
+			<h2 class="modal__header">Add category</h2>
+			<div class="modal__form">
+				<label>Title</label>
+				<input type="text" id="category-title" />
+			</div>
+			<div class="charlengh-warning hidden">
+				Please enter a category title (max. 40 characters)
+			</div>
+			<div class="btn-confirm" id="btn-category-confirm">Confirm</div>
+		</div>
+		<div class="overlay hidden"></div>
+	</body>
+</html>
