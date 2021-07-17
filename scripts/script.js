@@ -47,6 +47,8 @@ const inputTaskDescription = document.querySelector('#input-description');
 const inputPriorities = document.querySelector('#priorities');
 const inputDueDate = document.querySelector('#duedate');
 
+let currentCategoryIndex;
+
 class App {
 	#categories = [];
 
@@ -73,7 +75,19 @@ class App {
 		});
 
 		// Create category upon clicking confirm button
-		btnConfirmCategory.addEventListener('click', this._newCategory.bind(this));
+		btnConfirmCategory.addEventListener('click', () => {
+			if (
+				document.querySelector('#modal__header-category').textContent ==
+				'Add category'
+			) {
+				this._newCategory();
+			} else if (
+				document.querySelector('#modal__header-category').textContent ==
+				'Edit category'
+			) {
+				this._editCategory(currentCategoryIndex);
+			}
+		});
 
 		// Create task upon clicking confirm button
 		btnConfirmTask.addEventListener('click', this._newTask.bind(this));
@@ -81,7 +95,17 @@ class App {
 		// Create category/task upon clicking enter
 		window.addEventListener('keydown', (e) => {
 			if (!categoryModal.classList.contains('hidden') && e.code == 'Enter') {
-				this._newCategory();
+				if (
+					document.querySelector('#modal__header-category').textContent ==
+					'Add category'
+				) {
+					this._newCategory();
+				} else if (
+					document.querySelector('#modal__header-category').textContent ==
+					'Edit category'
+				) {
+					this._editCategory(currentCategoryIndex);
+				}
 			}
 			if (!taskModal.classList.contains('hidden') && e.code == 'Enter') {
 				this._newTask();
@@ -101,10 +125,27 @@ class App {
 				this._clearAllCategories();
 				this._renderAllCategories();
 				this._clearTasks();
-				console.log(e.target.closest('.category'));
 			}
 			if (e.target.id == 'btn-edit-category') {
-				console.log(id);
+				this._displayEditModal(id);
+			}
+		});
+	}
+
+	_editCategory(index) {
+		this.#categories[index].title = inputCategoryTitle.value;
+		this._clearAllCategories();
+		this._renderAllCategories();
+		this._closeModals();
+	}
+	_displayEditModal(id) {
+		this._displayCategoryModal();
+		document.querySelector('#modal__header-category').textContent =
+			'Edit category';
+		this.#categories.forEach((cat, i) => {
+			if (cat.id == id) {
+				inputCategoryTitle.value = cat.title;
+				currentCategoryIndex = i;
 			}
 		});
 	}
@@ -164,6 +205,8 @@ class App {
 	}
 
 	_displayCategoryModal() {
+		document.querySelector('#modal__header-category').textContent =
+			'Add category';
 		overlay.classList.remove('hidden');
 		categoryModal.classList.remove('hidden');
 		setTimeout(() => {
@@ -271,9 +314,7 @@ class App {
 		// Render all tasks from active category
 		allCategories.forEach((cat) => {
 			if (cat.classList.contains('active')) {
-				const activeCategory = cat;
-				const curID = activeCategory.dataset.id;
-
+				const curID = cat.dataset.id;
 				// Loop over categories array to find matching ID
 				this.#categories.forEach((cat) => {
 					if (cat.id == curID) {
@@ -311,7 +352,7 @@ class App {
 	}
 
 	_renderTask(task) {
-		let html = `<div class="task" id="task-${task.id}">
+		let html = `<div class="task" id="${task.id}">
 		<div class="task__title">${task.title}</div>
 		<div class="task__description">
 			${task.description}
